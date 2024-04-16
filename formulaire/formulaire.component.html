@@ -1,0 +1,147 @@
+<!-- main app container -->
+<div class="card m-3">
+    <h5 class="card-header">Aide et contact par formulaire en ligne</h5>
+    <div class="card-body">
+        <form [formGroup]='registerForm' (ngSubmit)="onSubmit()">
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Categories </label>
+                <select id="categoriesList" formControlName="categoriesList"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('categoriesList')?.errors }"
+                    (ngModelChange)="setAnotherSelect(+$event)">
+                    <select [ngModel]="categorySelected" [ngModelOptions]="{standalone: true}"></select>
+                    <option value="-1"></option>
+                    <option *ngFor="let c of categories" value={{c.id}}>{{ c.name }}</option>
+                </select>
+                <div *ngIf="submitted && registerForm.get('categoriesList')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('categoriesList')?.hasError('required')"> categoriesList is required
+                    </div>
+                </div>
+            </div>
+
+            <select id="sousCategoriesList" formControlName="sousCategoriesList" *ngIf="showsousCategorie">
+                <select [ngModel]="sousCategorie" [ngModelOptions]="{standalone: true}"></select>
+                <option value="-1"></option>
+                <option *ngFor="let element of sousCategorie" value="{{ element.id }}">{{ element.name }}</option>
+            </select>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">First Name</label>
+                <input type="firstName" formControlName="firstName" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('firstName')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('firstName')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('firstName')?.hasError('required')">First Name is required</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">lastName </label>
+                <input type="lastName" formControlName="lastName" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('lastName')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('lastName')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('lastName')?.hasError('required')"> lastName is required</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <div>
+                    <label class="form-label">Téléphone </label>
+                    <select id="selectphone" formControlName="selectphone" name="selectphone"
+                        [ngClass]="{ 'is-invalid': submitted && registerForm.get('selectphone')?.errors }">>
+                        <option [defaultSelected]=true [value]="defaultCode">{{defaultCode}}</option>
+                        <option *ngFor="let n of numberCode" [value]="n">{{ n }}</option>
+                    </select>
+                    <div *ngIf="submitted && registerForm.get('selectphone')?.hasError" class="invalid-feedback">
+                        <div *ngIf="registerForm.get('selectphone')?.hasError('required')"> please select l'indicatif du
+                            telephone</div>
+                    </div>
+                </div>
+                <input id="telephone" type="text" formControlName="telephone" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('telephone')?.errors }"
+                    placeholder="entrez votre telephone" />
+                <div *ngIf="submitted && registerForm.get('telephone')?.hasError" class="invalid-feedback">
+                    <div *ngIf="registerForm.get('telephone')?.hasError('required')"> Téléphone is required</div>
+                    <div *ngIf="registerForm.get('telephone')?.hasError('pattern')"> Numbers only</div>
+                    <div *ngIf="registerForm.get('telephone')?.hasError('minlength')"> minimn is 3</div>
+                    <div *ngIf="registerForm.get('telephone')?.hasError('maxlength')"> maximum is 10</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Date of Birth </label>
+                <input type="date" formControlName="dob" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('dob')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('dob')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('dob')?.hasError('required')"> Date of Birth is required</div>
+                    <div *ngIf="registerForm.get('dob')?.hasError('pattern')">Date of Birth must be a valid date in the
+                        format YYYY-MM-DD</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Email </label>
+                <input type="text" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('email')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('email')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('email')?.hasError('required')"> email is required</div>
+                    <div *ngIf="registerForm.get('email')?.hasError('email')">Email must be a valid email address</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Pays adresse fiscale </label>
+                <select id="pays" name="pays" formControlName="pays"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('pays')?.errors }">
+                    <option [defaultSelected]=true [value]="default">{{default}}</option>
+                    <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+                </select>
+                <div *ngIf="submitted && registerForm.get('pays')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('pays')?.hasError('required')"> pays is required</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Mon message </label>
+                <textarea formControlName="message"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('message')?.errors }" placeholder="Bonjour, Je vous contacte pour …
+            Réponse limitée à 4000 caractères. Merci. " [attr.disabled]="words >4000 ? '' : null"
+                    (keydown)="wordCounter()" #text id="wmd-input" name="post-text"
+                    class="wmd-input s-input bar0 js-post-body-field processed" data-post-type-id="2" cols="62"
+                    rows="10" tabindex="4001" data-min-length="" oncopy="return false;" onpaste="return false;"
+                    oncut="return false;"></textarea>
+                <div>Words:<span id="wordCount">{{ words }}</span></div>
+                <div *ngIf="submitted && registerForm.get('message')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('message')?.hasError('required')"> message is required</div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="file">File</label>
+                <input formControlName="file" id="file" type="file" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('file')?.errors }"
+                    (change)="onFileChange($event)" accept=".pdf, .png, .jpeg">
+                <div *ngIf="registerForm.get('file')?.hasError || registerForm.get('file')?.hasError('invalid') "
+                    class="invalid-feedback">
+                    <div *ngIf="registerForm.get('file')?.hasError('required')">File is required.</div>
+                </div>
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('acceptTerms')?.errors }" />
+                <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+                <div *ngIf="submitted && registerForm.get('acceptTerms')?.hasError " class="invalid-feedback">
+                    Accept Ts & Cs is required
+                </div>
+            </div>
+
+            <button id="thebutton" class="btn btn-primary me-2"
+                [ngClass]="{ 'is-invalid': submitted && registerForm.get('acceptTerms')?.errors }">Register</button>
+            <div *ngIf="submitted && registerForm.invalid || submitted && registerForm.get('thebutton')?.hasError"
+                class="invalid-feedback">
+                ce formulaire contient des erreurs
+            </div>
+
+        </form>
+    </div>
+</div>

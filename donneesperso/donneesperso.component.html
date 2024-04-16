@@ -1,0 +1,160 @@
+<ng-container [formGroup]="form">
+    <div class="form-container">
+        <div class="float-container">
+            <div class="wrapper">
+                <h3>{{'profil.tab.donneesperson.identite' | translate}} </h3>
+            </div>
+
+            <uptevia-ui-label class="form-label" label="{{'form.field.civilite'| translate}}"></uptevia-ui-label>
+            <select id="civilite" formControlName="civilite">
+                <option *ngFor="let c of civilite" [value]="c">
+                    {{ c }}
+                </option>
+            </select>
+        </div>
+
+        <div class="float-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="nom" label="{{'profil.perso.nom'| translate}}"></uptevia-ui-label>
+                    <input formControlName="nom" class="form-control disabled-field" type="text" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="nomJF" label="{{'profil.perso.nom.JF'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="nomJF" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="float-container">
+            <div class="col-md-6">
+                <uptevia-ui-label for="prenom" label="{{'profil.perso.prenom'| translate}}"></uptevia-ui-label>
+                <input type="text" formControlName="prenom" class="form-control disabled-field" readonly />
+            </div>
+        </div>
+
+        <div class="float-container">
+            <div class="wrapper">
+                <h3>{{'profil.tab.donneesperson.donneesnaissance' | translate}} </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="dob" label="{{'profil.naissance.date'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="dob" class="form-control disabled-field" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="dept" label="{{'profil.naissance.dept'| translate}}"></uptevia-ui-label>
+                    <input type="dept" formControlName="dept" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="float-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="lieu" label="{{'profil.naissance.lieu'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="lieu" class="form-control disabled-field" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="paysnaissance"
+                        label="{{'profil.naissance.pays'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="paysnaissance" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="float-container">
+            <div class="wrapper">
+                <h3>{{'profil.tab.donneesperson.moyensdecontact' | translate}} </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="emailperso"
+                        label="{{'profil.perso.mailContact'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="emailperso" class="form-control disabled-field" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="telMobilePerso"
+                        label="{{'profil.perso.telMobilePerso'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="telMobilePerso" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="float-container">
+            <div class="wrapper">
+                <h3>{{'profil.tab.donneesperson.adressefiscale' | translate}} </h3>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="fiscaleBat"
+                        label="{{'profil.adresse.fiscale.bat'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="fiscaleBat" class="form-control disabled-field" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="adresseRue" label="{{'profil.adresse.rue'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="adresseRue" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="float-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="complement"
+                        label="{{'profil.adresse.complement'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="complement" class="form-control disabled-field" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="adressePostale"
+                        label="{{'profil.adresse.postale.cp'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="adressePostale" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="float-container">
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="fiscaleVille"
+                        label="{{'profil.adresse.fiscale.ville'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="fiscaleVille" class="form-control disabled-field" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="fiscalePays"
+                        label="{{'profil.adresse.fiscale.pays'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="fiscalePays" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+        <div class="float-container">
+                <div class="wrapper">
+                    <h3>{{'profil.tab.donneesperson.adressePostale' | translate}} </h3>
+                </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <uptevia-ui-label for="postaleCp"
+                        label="{{'profil.adresse.postale.cp'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="postaleCp" class="form-control disabled-field" readonly />
+                </div>
+
+                <div class="col-md-6">
+                    <uptevia-ui-label for="postaleComu"
+                        label="{{'profil.adresse.postale.comu'| translate}}"></uptevia-ui-label>
+                    <input type="text" formControlName="postaleComu" class="form-control disabled-field" readonly />
+                </div>
+            </div>
+        </div>
+
+       
+
+    </div>
+</ng-container>

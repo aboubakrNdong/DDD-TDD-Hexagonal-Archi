@@ -1,0 +1,120 @@
+
+.form {
+    width: 100%;
+    background: #fff;
+    padding: 30px;
+    max-width: 450px;
+    border-radius: 10px;
+    box-shadow: rgba(3, 3, 3, 0.1) 10px 0px 50px;
+  }
+
+  .form-message{
+    width: 600px;
+    height: 200px;
+    size: 50px;
+  }
+
+  .control-label.required:after { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 5px;
+    top:7px;
+  }
+  
+  .field {
+    margin-bottom: 30px;
+  }
+  
+  .label {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #777;
+
+    .control-label.required:after { 
+      color: #d00;
+      content: "*";
+      position: absolute;
+      margin-left: 5px;
+      top:7px;
+    }
+  }
+  
+  .input {
+    width: 100%;
+    padding: 25px 15px;
+    border: 0;
+    background: #f0f0f0;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #555;
+    font-weight: 600;
+  }
+  
+  .button {
+    background: #037ef3;
+    color: #fff;
+    font-weight: 600;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 25px 15px;
+    border: 0;
+    font-size: 18px;
+    &:hover {
+      background: #0271da;
+    }
+  }
+  
+  .invalid {
+    border: 1px solid red;
+  }
+  
+  .error {
+    color: red;
+  }
+
+  .form-label::after{
+    content:" *";
+    color: red;
+    position: relative;
+  }
+  
+
+  
+  
+p {
+  font-family: Lato;
+}
+
+.box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.float-container {
+    border: 3px solid #fff;
+    padding: 10px;
+}
+
+.float-child {
+    width: 55%;
+    float: left;
+    padding: 10px;
+    border: 2px solid #555;
+}  
+
+.float-child1 {
+    width: 30%;
+    float: left;
+    padding: 10px;
+    border: 2px solid #555;
+}  
+
+.phonecontainer{
+    display: flex;
+    align-items: center;
+}

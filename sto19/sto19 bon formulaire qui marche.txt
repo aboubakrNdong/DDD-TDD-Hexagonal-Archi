@@ -1,0 +1,241 @@
+<!-- main app container -->
+<div class="card m-3">
+    <h5 class="card-header">Reactive Form Validation</h5>
+    <div class="card-body">
+        <form [formGroup]='registerForm' (ngSubmit)="onSubmit()">
+            <div class="col-3 mb-3">
+                <label class="form-label">First Name</label>
+                <input type="firstName" formControlName="firstName" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('firstName')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('firstName')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('firstName')?.hasError('required')">First Name is required</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">lastName </label>
+                <input type="lastName" formControlName="lastName" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('lastName')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('lastName')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('lastName')?.hasError('required')"> lastName is required</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <div>
+                    <label class="form-label">Téléphone </label>
+                    <select id="selectphone" formControlName="selectphone" name="selectphone"
+                        [ngClass]="{ 'is-invalid': submitted && registerForm.get('selectphone')?.errors }">>
+                        <option [defaultSelected]=true [value]="defaultCode">{{defaultCode}}</option>
+                        <option *ngFor="let n of numberCode" [value]="n">{{ n }}</option>
+                    </select>
+                    <div *ngIf="submitted && registerForm.get('selectphone')?.hasError" class="invalid-feedback">
+                        <div *ngIf="registerForm.get('selectphone')?.hasError('required')"> please select l'indicatif du
+                            telephone</div>
+                    </div>
+                </div>
+                <input id="telephone" type="text" formControlName="telephone" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('telephone')?.errors }"
+                    placeholder="entrez votre telephone" />
+                <div *ngIf="submitted && registerForm.get('telephone')?.hasError" class="invalid-feedback">
+                    <div *ngIf="registerForm.get('telephone')?.hasError('required')"> Téléphone is required</div>
+                    <div *ngIf="registerForm.get('telephone')?.hasError('pattern')"> Numbers only</div>
+                    <div *ngIf="registerForm.get('telephone')?.hasError('minlength')"> minimn is 3</div>
+                    <div *ngIf="registerForm.get('telephone')?.hasError('maxlength')"> maximum is 10</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Date of Birth </label>
+                <input type="date" formControlName="dob" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('dob')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('dob')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('dob')?.hasError('required')"> Date of Birth is required</div>
+                    <div *ngIf="registerForm.get('dob')?.hasError('pattern')">Date of Birth must be a valid date in the
+                        format YYYY-MM-DD</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Email </label>
+                <input type="text" formControlName="email" class="form-control"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('email')?.errors }" />
+                <div *ngIf="submitted && registerForm.get('email')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('email')?.hasError('required')"> email is required</div>
+                    <div *ngIf="registerForm.get('email')?.hasError('email')">Email must be a valid email address</div>
+                </div>
+            </div>
+
+            <div class="col-3 mb-3">
+                <label class="form-label">Pays adresse fiscale </label>
+                <select id="pays" name="pays" formControlName="pays"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('pays')?.errors }">
+                    <option [defaultSelected]=true [value]="default">{{default}}</option>
+                    <option *ngFor="let c of countries" [value]="c">{{ c }}</option>
+                </select>
+                <div *ngIf="submitted && registerForm.get('pays')?.hasError " class="invalid-feedback">
+                    <div *ngIf="registerForm.get('pays')?.hasError('required')"> pays is required</div>
+                </div>
+            </div>
+
+            <div class="form-check mb-3">
+                <input type="checkbox" formControlName="acceptTerms" id="acceptTerms" class="form-check-input"
+                    [ngClass]="{ 'is-invalid': submitted && registerForm.get('acceptTerms')?.errors }" />
+                <label for="acceptTerms" class="form-check-label">Accept Terms & Conditions</label>
+                <div *ngIf="submitted && registerForm.get('acceptTerms')?.hasError " class="invalid-feedback">
+                    Accept Ts & Cs is required
+                </div>
+            </div>
+
+            <button class="btn btn-primary me-2">Register</button>
+        
+        </form>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+import { Component, OnInit, Input } from '@angular/core';
+import { ICategoryStructure } from './formulairemodel';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+@Component({
+  selector: 'app-formulaire',
+  templateUrl: './formulaire.component.html',
+  styleUrls: ['./formulaire.component.css']
+})
+export class FormulaireComponent implements OnInit {
+  registerForm!: FormGroup;
+  submitted = false;
+  countries = ['USA', 'FR', 'Canada'];
+  default = 'FR';
+
+  numberCode = ['PR(0032)', 'FR(+33)', 'IS(+35)'];
+  defaultCode = 'FR(+33)';
+
+  constructor(private formBuilder: FormBuilder) { }
+
+
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      title: ['', Validators.required],
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
+      telephone: ['', [Validators.required, Validators.pattern("^[0-9]*$"), Validators.minLength(3), Validators.maxLength(10)]],
+      selectphone: ['FR(+33)', Validators.required],
+
+      // validates date format yyyy-mm-dd
+      dob: ['', [Validators.required, Validators.pattern(/^\d{4}\-(0[1-9]|1[012])\-(0[1-9]|[12][0-9]|3[01])$/)]],
+      email: ['', [Validators.required, Validators.email]],
+      pays: ['FR', Validators.required],
+
+      acceptTerms: [false, Validators.requiredTrue]
+    });
+  }
+
+  // convenience getter for easy access to form fields
+  get f() { return this.registerForm.controls; }
+
+  onSubmit() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+
+    // display form values on success
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.registerForm.value, null, 4));
+  }
+}
+
+
+
+
+
+
+  .form {
+    width: 100%;
+    background: #fff;
+    padding: 30px;
+    max-width: 450px;
+    border-radius: 10px;
+    box-shadow: rgba(3, 3, 3, 0.1) 10px 0px 50px;
+  }
+
+  .control-label.required:after { 
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 5px;
+    top:7px;
+  }
+  
+  .field {
+    margin-bottom: 30px;
+  }
+  
+  .label {
+    margin-bottom: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #777;
+    .control-label.required:after { 
+      color: #d00;
+      content: "*";
+      position: absolute;
+      margin-left: 5px;
+      top:7px;
+    }
+  }
+  
+  .input {
+    width: 100%;
+    padding: 25px 15px;
+    border: 0;
+    background: #f0f0f0;
+    border-radius: 5px;
+    font-size: 18px;
+    color: #555;
+    font-weight: 600;
+  }
+  
+  .button {
+    background: #037ef3;
+    color: #fff;
+    font-weight: 600;
+    width: 100%;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 25px 15px;
+    border: 0;
+    font-size: 18px;
+    &:hover {
+      background: #0271da;
+    }
+  }
+  
+  .invalid {
+    border: 1px solid red;
+  }
+  
+  .error {
+    color: red;
+  }
+
+  .form-label::after{
+    content:" *";
+    color: red;
+  }
+  
+
+  
+  
